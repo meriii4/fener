@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fener Haber - Fenerbahçe'nin En Güncel Haberleri</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --fb-navy: #041e42;
+            --fb-yellow: #ffd200;
+            --fb-light-blue: #006bb6;
+            --fb-gray: #f0f0f0;
+        }
+        
+        body {
+            background-color: var(--fb-gray);
+        }
+        
+        .header {
+            background-color: var(--fb-navy);
+            color: var(--fb-yellow);
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        .site-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .search-section {
+            margin-right: 20px;
+            display: flex;
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--fb-yellow);
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            box-shadow: 0 0 8px var(--fb-yellow);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            width: 60px;
+            background-color: var(--fb-yellow);
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background-color: #e6bd00;
+            transform: scale(1.05);
+        }
+        
+        .nav-bar {
+            background: linear-gradient(90deg, var(--fb-yellow) 0%, #ffdf4d 100%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            position: relative;
+        }
+        
+        .nav-menu li a {
+            display: block;
+            padding: 18px 25px;
+            color: var(--fb-navy);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu li a:hover {
+            background-color: var(--fb-navy);
+            color: var(--fb-yellow);
+            transform: translateY(-3px);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .auth-btn {
+            padding: 12px 25px;
+            margin-left: 10px;
+            background-color: var(--fb-navy);
+            color: var(--fb-yellow);
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-btn:hover {
+            background-color: #072a55;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .main-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .featured-news {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            position: relative;
+            font-size: 2rem;
+            color: var(--fb-navy);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--fb-navy) 0%, var(--fb-yellow) 100%);
+            border-radius: 2px;
+        }
+        
+        .main-feature {
+            position: relative;
+            overflow: hidden;
+            height: 450px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+            background-color: var(--fb-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            opacity: 0.75;
+        }
+        
+        .main-feature:hover .featured-image {
+            transform: scale(1.08);
+        }
+        
+        .feature-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(4, 30, 66, 0.95), transparent);
+            padding: 30px;
+            color: white;
+            transform: translateY(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .main-feature:hover .feature-overlay {
+            transform: translateY(-10px);
+        }
+        
+        .feature-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--fb-yellow);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-desc {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .read-more {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(90deg, var(--fb-yellow) 0%, #ffdf4d 100%);
+            color: var(--fb-navy);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .read-more:hover {
+            background: linear-gradient(90deg, #ffdf4d 0%, var(--fb-yellow) 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .category-card {
+            position: relative;
+            height: 220px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.18);
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .category-card:hover .category-image {
+            transform: scale(1.1);
+        }
+        
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(4, 30, 66, 0.9), rgba(4, 30, 66, 0.5), transparent);
+            padding: 20px;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .category-card:hover .category-overlay {
+            transform: translateY(-5px);
+        }
+        
+        .category-title {
+            color: var(--fb-yellow);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        
+        .sport-card {
+            position: relative;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, var(--fb-navy) 0%, #0a3366 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sport-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sport-logo {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 20px;
+            transition: transform 0.4s ease;
+        }
+        
+        .sport-card:hover .sport-logo {
+            transform: scale(1.1);
+        }
+        
+        .sport-title {
+            color: var(--fb-yellow);
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .fb-logo {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .breaking-news {
+            background: linear-gradient(90deg, var(--fb-yellow) 0%, #ffdf4d 100%);
+            padding: 12px 0;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .breaking-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breaking-label {
+            background-color: var(--fb-navy);
+            color: var(--fb-yellow);
+            padding: 8px 20px;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 3px 0 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .news-ticker {
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .news-item {
+            display: inline-block;
+            margin-right: 40px;
+            color: var(--fb-navy);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--fb-navy) 0%, #0a3366 100%);
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 50px;
+            border-top: 5px solid var(--fb-yellow);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 0 30px;
+        }
+        
+        .footer-column h3 {
+            color: var(--fb-yellow);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--fb-yellow);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--fb-yellow);
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--fb-yellow);
+            transform: translateX(5px);
+        }
+        
+        .footer-links a:hover::before {
+            transform: translateX(3px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--fb-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--fb-navy);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-icon:hover {
+            background-color: white;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--fb-yellow);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            background: linear-gradient(135deg, var(--fb-navy) 0%, #0a3366 100%);
+            padding: 40px 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            color: white;
+            text-align: center;
+        }
+        
+        .newsletter h3 {
+            color: var(--fb-yellow);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .newsletter p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .newsletter-btn {
+            padding: 15px 25px;
+            background: linear-gradient(90deg, var(--fb-yellow) 0%, #ffdf4d 100%);
+            color: var(--fb-navy);
+            border: none;
+            border-radius: 0 30px 30px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-btn:hover {
+            background: linear-gradient(90deg, #ffdf4d 0%, var(--fb-yellow) 100%);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sports-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .header {
+                padding: 10px 0;
+            }
+            
+            .site-title {
+                font-size: 1.8rem;
+            }
+            
+            .feature-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            .logo-section {
+                margin: 0 0 15px 0;
+            }
+            
+            .search-section {
+                width: 90%;
+                margin: 15px auto;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                padding: 0;
+                position: relative;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            .nav-menu.active {
+                max-height: 500px;
+            }
+            
+            .nav-menu li a {
+                padding: 15px;
+                text-align: center;
+                border-top: 1px solid rgba(4, 30, 66, 0.1);
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+                margin: 15px 0;
+            }
+            
+            .main-feature {
+                height: 350px;
+            }
+            
+            .feature-title {
+                font-size: 1.5rem;
+            }
+            
+            .categories, .sports-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-btn {
+                border-radius: 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-links a {
+                padding-left: 0;
+            }
+            
+            .footer-links a::before {
+                display: none;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .site-title {
+                font-size: 1.5rem;
+            }
+            
+            .main-feature {
+                height: 280px;
+            }
+            
+            .feature-overlay {
+                padding: 15px;
+            }
+            
+            .feature-title {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+            
+            .feature-desc {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+            
+            .read-more {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">
+                <img src="/api/placeholder/70/70" alt="Fenerbahçe Logo" class="fb-logo">
+            </div>
+            <h1 class="site-title">FENER HABER</h1>
+        </div>
+        <div class="search-section">
+            <input type="text" class="search-box" placeholder="Arama...">
+            <button class="search-btn">🔍</button>
+        </div>
+    </header>
+    
+    <nav class="nav-bar">
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#">ANA SAYFA</a></li>
+            <li><a href="#">FUTBOL</a></li>
+            <li><a href="#">BASKETBOL</a></li>
+            <li><a href="#">VOLEYBOL</a></li>
+            <li><a href="#">BOKS</a></li>
+            <li><a href="#">YÜZME</a></li>
+            <li><a href="#">ATLETİZM</a></li>
+            <li><a href="#">MASA TENİSİ</a></li>
+            <li><a href="#">HAKKIMIZDA</a></li>
+            <li><a href="#">İLETİŞİM</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="auth-btn">GİRİŞ YAP</button>
+            <button class="auth-btn">ÜYE OL</button>
+        </div>
+    </nav>
+    
+    <div class="breaking-news">
+        <div class="breaking-container">
+            <div class="breaking-label">SON DAKİKA</div>
+            <div class="news-ticker">
+                <span class="news-item">Fenerbahçe, yeni transfer için görüşmelere başladı!</span>
+                <span class="news-item">Sarı-Lacivertliler, kritik maça hazır!</span>
+                <span class="news-item">Teknik direktör, kadro planlamasını açıkladı!</span>
+                <span class="news-item">Fenerbahçe basketbol takımı Avrupa'da zafer peşinde!</span>
+                <span class="news-item">Sarı-Lacivertli yıldız oyuncu sakatlıktan döndü!</span>
+            </div>
+        </div>
+    </div>
+    
+    <main class="main-content">
+        <section class="featured-news">
+            <h2 class="section-title">ANA HABER</h2>
+            <div class="main-feature">
+                <img src="/api/placeholder/400/320" alt="Fenerbahçe Ana Haber" class="featured-image">
+                <div class="feature-overlay">
+                    <h3 class="feature-title">Fenerbahçe'den muhteşem galibiyet!</h3>
+                    <p class="feature-desc">Sarı-Lacivertliler, zorlu deplasmanda rakibini 3-0 mağlup ederek liderliğini sürdürdü. Teknik direktör, oyuncularını tebrik etti ve taraftarlara teşekkür mesajı yayınladı.</p>
+                    <a href="#" class="read-more">Devamını Oku</a>
+                </div>
+            </div>
+            
+            
+        </section>
+        
+       
+        
+        
+        <section class="sports-section">
+            <h2 class="section-title">SPOR BRANŞLARI</h2>
+             
+            <div class="categories">
+                <div class="category-card">
+                    <img src="/api/placeholder/400/320" alt="Futbol Haberleri" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">FUTBOL</h3>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="/api/placeholder/400/320" alt="Basketbol Haberleri" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">BASKETBOL</h3>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="/api/placeholder/400/320" alt="Voleybol Haberleri" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">VOLEYBOL</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="sports-grid">
+                <div class="sport-card">
+                    <div class="sport-logo">
+                        <img src="/api/placeholder/90/90" alt="Fenerbahçe Logo" class="fb-logo">
+                    </div>
+                    <h3 class="sport-title">ATLETİZM</h3>
+                </div>
+                
+                <div class="sport-card">
+                    <div class="sport-logo">
+                        <img src="/api/placeholder/90/90" alt="Fenerbahçe Logo" class="fb-logo">
+                    </div>
+                    <h3 class="sport-title">YÜZME</h3>
+                </div>
+                
+                <div class="sport-card">
+                    <div class="sport-logo">
+                        <img src="/api/placeholder/90/90" alt="Fenerbahçe Logo" class="fb-logo">
+                    </div>
+                    <h3 class="sport-title">MASA TENİSİ</h3>
+                </div>
+                
+                <div class="sport-card">
+                    <div class="sport-logo">
+                        <img src="/api/placeholder/90/90" alt="Fenerbahçe Logo" class="fb-logo">
+                    </div>
+                    <h3 class="sport-title">BOKS</h3>
+                </div>
+            </div>
+        </section>
+        <section class="newsletter">
+            <h3>Güncel Haberleri İlk Sen Al!</h3>
+            <p>E-posta adresinizi bırakarak Fenerbahçe'nin tüm branşlarından en güncel haberleri, özel röportajları ve detaylı analizleri ilk siz alın.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="E-posta adresiniz">
+                <button type="submit" class="newsletter-btn">ABONE OL</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Hakkımızda</h3>
+                <p>Fener Haber, Fenerbahçe'nin tüm branşlardaki en güncel haberlerini taraftarlara ulaştıran bağımsız bir haber platformudur. 2023 yılından beri hizmet vermekteyiz.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">t</a>
+                    <a href="#" class="social-icon">i</a>
+                   
+                 
