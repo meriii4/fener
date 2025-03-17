@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Fenerbahçe Futbol - Bilgiler</title>
+    <style>
+        /* Genel Stil ve Sıfırlama */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Bölümü */
+        .header {
+            background-color: #041E42; /* Fenerbahçe Lacivert */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 5px solid #FFED00; /* Fenerbahçe Sarı */
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .fb-logo {
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .search-section {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .search-box {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+            width: 200px;
+        }
+
+        .search-btn {
+            background-color: #FFED00;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: #FFD700;
+        }
+
+        /* Navigasyon Menüsü */
+        .nav-bar {
+            background-color: #FFED00; /* Fenerbahçe Sarı */
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            display: block;
+            color: #041E42; /* Fenerbahçe Lacivert */
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background-color: #041E42;
+            color: #FFED00;
+        }
+
+        /* Ana İçerik */
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            color: #041E42;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #FFED00;
+            font-weight: 600;
+        }
+
+        /* Öne Çıkan Haber Bölümü */
+        .featured-news {
+            margin-bottom: 30px;
+        }
+
+        .main-feature {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .main-feature:hover .featured-image {
+            transform: scale(1.05);
+        }
+
+        .feature-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(4, 30, 66, 0.8); /* Fenerbahçe Lacivert */
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.5s;
+        }
+
+        .main-feature:hover .feature-overlay {
+            transform: translateY(0);
+        }
+
+        .feature-title {
+            color: #FFED00;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Bilgi Bölümü */
+        .info-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #041E42;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 5px solid #FFED00;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-section {
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+            
+            .search-section {
+                margin: 10px auto;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+            }
+            
+            .nav-menu a {
+                text-align: center;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">
+                <img src="/api/placeholder/70/70" alt="Fenerbahçe Logo" class="fb-logo">
+            </div>
+            <h1 class="site-title">FENERBAHÇE BASKETBOL</h1>
+        </div>
+        <div class="search-section">
+            <input type="text" class="search-box" placeholder="Arama...">
+            <button class="search-btn">🔍</button>
+        </div>
+    </header>
+    
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html">ANA SAYFA</a></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <section class="featured-news">
+            <h2 class="section-title">Fenerbahçe VOLEYBOL Takımı</h2>
+            <div class="main-feature">
+                <img src="/api/placeholder/400/320" alt="Fenerbahçe Futbol" class="featured-image">
+                <div class="feature-overlay">
+                    <h3 class="feature-title">Takım Hakkında</h3>
+                    <p class="feature-desc">Buraya Fenerbahçe Voleybol takımı ile ilgili bilgilerinizi ekleyebilirsiniz.</p>
+                </div>
+            </div>
+        </section>
+        <section class="info-section">
+            <h2 class="section-title">Detaylar</h2>
+            <p>Buraya takım tarihi, başarılar ve oyuncu kadrosu gibi bilgilerinizi yazabilirsiniz.</p>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Fenerbahçe Voleybol. Tüm haklar saklıdır.</p>
+    </footer>
+</body>
+</html>
