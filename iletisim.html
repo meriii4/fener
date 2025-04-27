@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Fener Haber</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --fb-navy: #041e42;
+            --fb-yellow: #ffd200;
+            --fb-light-blue: #006bb6;
+            --fb-gray: #f0f0f0;
+        }
+        
+        body {
+            background-color: var(--fb-gray);
+        }
+        
+        .header {
+            background-color: var(--fb-navy);
+            color: var(--fb-yellow);
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        .site-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .search-section {
+            margin-right: 20px;
+            display: flex;
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--fb-yellow);
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            box-shadow: 0 0 8px var(--fb-yellow);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            width: 60px;
+            background-color: var(--fb-yellow);
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background-color: #e6bd00;
+            transform: scale(1.05);
+        }
+        
+        .nav-bar {
+            background: linear-gradient(90deg, var(--fb-yellow) 0%, #ffdf4d 100%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            position: relative;
+        }
+        
+        .nav-menu li a {
+            display: block;
+            padding: 18px 25px;
+            color: var(--fb-navy);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu li a:hover {
+            background-color: var(--fb-navy);
+            color: var(--fb-yellow);
+            transform: translateY(-3px);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .auth-btn {
+            padding: 12px 25px;
+            margin-left: 10px;
+            background-color: var(--fb-navy);
+            color: var(--fb-yellow);
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-btn:hover {
+            background-color: #072a55;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .main-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--fb-navy);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--fb-navy) 0%, var(--fb-yellow) 100%);
+            border-radius: 2px;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .contact-info {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-title {
+            color: var(--fb-navy);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .info-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--fb-yellow);
+        }
+        
+        .info-item {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--fb-navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: var(--fb-yellow);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .info-content {
+            flex: 1;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: var(--fb-navy);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .info-text {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .contact-form-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-title {
+            color: var(--fb-navy);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--fb-yellow);
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--fb-navy);
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--fb-yellow);
+            box-shadow: 0 0 8px rgba(255, 210, 0, 0.4);
+            outline: none;
+        }
+        
+        .form-textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            padding: 15px 30px;
+            background: linear-gradient(90deg, var(--fb-navy) 0%, #0a3366 100%);
+            color: var(--fb-yellow);
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+            align-self: flex-start;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .map-container {
+            margin-top: 60px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            height: 450px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #555;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--fb-navy) 0%, #0a3366 100%);
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 50px;
+            border-top: 5px solid var(--fb-yellow);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 0 30px;
+        }
+        
+        .footer-column h3 {
+            color: var(--fb-yellow);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--fb-yellow);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--fb-yellow);
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--fb-yellow);
+            transform: translateX(5px);
+        }
+        
+        .footer-links a:hover::before {
+            transform: translateX(3px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--fb-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--fb-navy);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-icon:hover {
+            background-color: white;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            .logo-section {
+                margin: 0 0 15px 0;
+            }
+            
+            .search-section {
+                width: 90%;
+                margin: 15px auto;
+            }
+            
+            .nav-bar {
+                flex-direction: column;
+                padding: 0;
+                position: relative;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+            }
+            
+            .nav-menu.active {
+                max-height: 500px;
+            }
+            
+            .nav-menu li a {
+                padding: 15px;
+                text-align: center;
+                border-top: 1px solid rgba(4, 30, 66, 0.1);
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+                margin: 15px 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-links a {
+                padding-left: 0;
+            }
+            
+            .footer-links a::before {
+                display: none;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">
+                <img src="/api/placeholder/70/70" alt="Fenerbahçe Logo" class="fb-logo">
+            </div>
+            <h1 class="site-title">FENER HABER</h1>
+        </div>
+        <div class="search-section">
+            <input type="text" class="search-box" placeholder="Arama...">
+            <button class="search-btn">🔍</button>
+        </div>
+    </header>
+    
+    <nav class="nav-bar">
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">ANA SAYFA</a></li>
+            <li><a href="futbol.html">FUTBOL</a></li>
+            <li><a href="basketbol.html">BASKETBOL</a></li>
+            <li><a href="voleybol.html">VOLEYBOL</a></li>
+            <li><a href="boks.html">BOKS</a></li>
+            <li><a href="yuzme.html">YÜZME</a></li>
+            <li><a href="atletizm.html">ATLETİZM</a></li>
+            <li><a href="masatenisi.html">MASA TENİSİ</a></li>
+            <li><a href="hakkimizda.html">HAKKIMIZDA</a></li>
+            <li><a href="iletisim.html">İLETİŞİM</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="auth-btn">GİRİŞ YAP</button>
+            <button class="auth-btn">ÜYE OL</button>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <h1 class="page-title">İLETİŞİM</h1>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="info-title">İletişim Bilgilerimiz</h2>
+                
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adres</div>
+                        <div class="info-text">Fenerbahçe Şükrü Saracoğlu Stadı, Kızıltoprak Mahallesi, Fenerbahçe Plajı Sokak No:1, 34724 Kadıköy/İstanbul</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Telefon</div>
+                        <div class="info-text">+90 216 123 45 67</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-content">
+                        <div class="info-label">E-posta</div>
+                        <div class="info-text">iletisim@fenerhaber.com</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">🕒</div>
+                    <div class="info-content">
+                        <div class="info-label">Çalışma Saatleri</div>
+                        <div class="info-text">Hafta içi: 09:00 - 18:00<br>Hafta sonu: 10:00 - 16:00</div>
+                    </div>
+                </div>
+                
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">t</a>
+                    <a href="#" class="social-icon">i</a>
+                    <a href="#" class="social-icon">y</a>
+                </div>
+            </div>
+            
+            <div class="contact-form-container">
+                <h2 class="form-title">Bize Ulaşın</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Adınız Soyadınız</label>
+                        <input type="text" id="name" class="form-input" placeholder="Adınız Soyadınız" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">E-posta Adresiniz</label>
+                        <input type="email" id="email" class="form-input" placeholder="E-posta Adresiniz" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Konu</label>
+                        <input type="text" id="subject" class="form-input" placeholder="Konu" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Mesajınız</label>
+                        <textarea id="message" class="form-textarea" placeholder="Mesajınızı buraya yazın..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">GÖNDER</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <!-- Burada gerçek bir harita yerleştirilebilir, şu an için yer tutucu -->
+            <div>
+                <p>Harita Burada Görüntülenecek</p>
+                <p>Fenerbahçe Şükrü Saracoğlu Stadı, Kadıköy/İstanbul</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Hakkımızda</h3>
+                <p>Fener Haber, Fenerbahçe'nin tüm branşlardaki en güncel haberlerini taraftarlara ulaştıran bağımsız bir haber platformudur. 2023 yılından beri hizmet vermekteyiz.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">t</a>
+                    <a href="#" class="social-icon">i</a>
+                    <a href="#" class="social-icon">y</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Hızlı Erişim</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="futbol.html">Futbol</a></li>
+                    <li><a href="basketbol.html">Basketbol</a></li>
+                    <li><a href="voleybol.html">Voleybol</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Diğer Branşlar</h3>
+                <ul class="footer-links">
+                    <li><a href="boks.html">Boks</a></li>
+                    <li><a href="yuzme.html">Yüzme</a></li>
+                    <li><a href="atletizm.html">Atletizm</a></li>
+                    <li><a href="masatenisi.html">Masa Tenisi</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>İletişim</h3>
+                <ul class="footer-links">
+                    <li><a href="iletisim.html">İletişim Formu</a></li>
+                    <li><a href="#">E-posta: info@fenerhaber.com</a></li>
+                    <li><a href="#">Tel: +90 216 123 45 67</a></li>
+                    <li><a href="#">Kadıköy, İstanbul</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023-2025 Fener Haber. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Menü Toggle Fonksiyonu
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
