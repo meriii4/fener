@@ -713,3 +713,58 @@
                 <div class="section-content">
                     <p class="section-text">Fener Haber, 2023 yılında bir grup tutkulu Fenerbahçe taraftarı gazeteci tarafından kuruldu. Kulübün tüm branşlarında yaşanan gelişmelerin yeterince ve doğru şekilde aktarılmadığını fark eden ekibimiz, bu açığı kapatmak için kolları sıvadı.</p>
                     <p class="section-text">Küçük bir ofiste ve sınırlı imkanlarla başlayan yolculuğumuz, Fenerbahçe taraftarlarının büyük ilgisi ve desteğiyle hızla büyüdü. Bugün, alanında uzman bir ekip ve güçlü teknik altyapıyla, Fenerbahçe'nin nabzını tutan en önemli haber kaynaklarından bir
+                        <div id="chatbot" style="position: fixed; bottom: 20px; right: 20px; width: 300px; z-index: 9999; font-family: sans-serif;">
+    <div id="chat-header" style="background: #041e42; color: #ffd200; padding: 10px; cursor: pointer; border-radius: 12px 12px 0 0;">
+        🤖 FenerBot - Yardımcı
+    </div>
+    <div id="chat-body" style="background: white; border: 2px solid #041e42; max-height: 350px; display: none; flex-direction: column; border-top: none; border-radius: 0 0 12px 12px; overflow: hidden;">
+        <div id="chat-messages" style="padding: 10px; height: 250px; overflow-y: auto; font-size: 0.9rem;"></div>
+        <div style="display: flex; border-top: 1px solid #eee;">
+            <input type="text" id="chat-input" placeholder="Mesajınızı yazın..." style="flex: 1; padding: 10px; border: none; outline: none;">
+            <button id="chat-send" style="background: #ffd200; border: none; padding: 10px; cursor: pointer;">Gönder</button>
+        </div>
+    </div>
+</div>
+<script>
+    const chatbotToggle = document.getElementById('chat-header');
+    const chatbotBody = document.getElementById('chat-body');
+    const chatbotMessages = document.getElementById('chat-messages');
+    const chatbotInput = document.getElementById('chat-input');
+    const chatbotSend = document.getElementById('chat-send');
+
+    const botResponses = {
+        "merhaba": "Merhaba! Size nasıl yardımcı olabilirim?",
+        "fenerbahçe": "Fenerbahçe hakkında ne öğrenmek istiyorsunuz?",
+        "futbol": "Fenerbahçe Futbol Takımı hakkında güncel haberlere ulaşmak için futbol sekmesini kullanabilirsiniz.",
+        "teşekkürler": "Rica ederim, her zaman buradayım!",
+        "görüşürüz": "Görüşmek üzere! 💛💙"
+    };
+
+    function appendMessage(sender, text) {
+        const msg = document.createElement('div');
+        msg.textContent = `${sender === 'user' ? '👤' : '🤖'} ${text}`;
+        msg.style.margin = "8px 0";
+        msg.style.color = sender === 'user' ? "#041e42" : "#333";
+        chatbotMessages.appendChild(msg);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    chatbotToggle.onclick = () => {
+        chatbotBody.style.display = chatbotBody.style.display === 'flex' ? 'none' : 'flex';
+    };
+
+    chatbotSend.onclick = () => {
+        const userInput = chatbotInput.value.trim().toLowerCase();
+        if (userInput) {
+            appendMessage('user', chatbotInput.value);
+            const response = botResponses[userInput] || "Üzgünüm, bu konuda size yardımcı olamıyorum. Daha sonra tekrar deneyin.";
+            setTimeout(() => appendMessage('bot', response), 500);
+            chatbotInput.value = '';
+        }
+    };
+
+    chatbotInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") chatbotSend.click();
+    });
+</script>
+
